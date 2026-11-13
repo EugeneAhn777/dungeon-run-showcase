@@ -14,9 +14,23 @@
 
 ## 모험가 예시
 
-| 검사 | 마법사 |
+| 검사 | 방패전사 |
 | --- | --- |
-| ![달리는 검사](images/swordsman.png) | ![달리는 마법사](images/mage.png) |
+| ![달리는 검사](images/swordsman.png) | ![달리는 방패전사](images/shield.png) |
+
+| 엘프 | 마법사 |
+| --- | --- |
+| ![달리는 엘프](images/elf.png) | ![달리는 마법사](images/mage.png) |
+
+## 대표 몬스터
+
+| 물방울 슬라임 · 첫 만남 | 서리갈기 늑대 |
+| --- | --- |
+| ![물방울 슬라임](images/monster-slime.png) | ![서리갈기 늑대](images/monster-wolf.png) |
+
+| 잿빛 장난꾼 고블린 | 홍련비늘 용 · 주말 레어 |
+| --- | --- |
+| ![잿빛 장난꾼 고블린](images/monster-goblin.png) | ![홍련비늘 용](images/monster-dragon.png) |
 
 이 소개 페이지에서는 설치 파일을 제공하지 않으며, 위 이미지는 시각 참고용으로 실제 기기 화면과 다를 수 있습니다.
 
