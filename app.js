@@ -24,6 +24,17 @@
   const sceneHero = $('#scene-hero');
   const sceneMonster = $('#scene-monster');
   const battleButton = $('#battle-button');
+  const maxTenths = 20;
+  const titleImage = $('#ultimate-title');
+  const effectImage = $('#ultimate-fx');
+  const impactImage = $('#ultimate-impact');
+  const effects = {
+    swordsman: ['fx-swordsman-cross', 'fx-swordsman-impact'],
+    shield: ['fx-shield-hammer', 'fx-shield-impact'],
+    elf: ['fx-elf-arrow', 'fx-elf-hit'],
+    mage: ['fx-mage-pillar', null]
+  };
+  const ultimateNames = { swordsman: '크로스 슬래시', shield: '디바인 해머', elf: '미라지 애로우', mage: '익스플로전' };
 
   const heroes = {
     swordsman: { name: '검사', text: '처음부터 함께할 수 있는 기본 모험가. 검을 들고 힘찬 발걸음으로 여정을 시작해요.' },
@@ -44,14 +55,26 @@
 
   function heroFrame(index) { sceneHero.style.backgroundPosition = `${index * 12.5}% 0`; sceneHero.classList.toggle('is-attacking', index === 5 || index === 6); }
   function monsterFrame(index) { sceneMonster.style.backgroundPosition = `${index * 100 / 3}% 0`; }
+  function renderHealth(selector, label, value) {
+    const element = $(selector);
+    element.setAttribute('aria-label', value === null ? `${label} 없음` : `${label} 체력 ${value}/3`);
+    const path = 'M12 21s-9-5.5-9-11.2C3 4.6 8.5 2.8 12 7c3.5-4.2 9-2.4 9 2.8C21 15.5 12 21 12 21z';
+    const hearts = value === null ? '—' : [0, 1, 2].map((index) => {
+      const remaining = value - index;
+      const state = remaining >= 1 ? 'full' : remaining > 0 ? 'half' : 'empty';
+      return `<svg class="heart heart-${state}" viewBox="0 0 24 24" focusable="false"><path class="heart-base" d="${path}"/><path class="heart-fill" d="${path}"/></svg>`;
+    }).join('');
+    element.innerHTML = `<span class="health-label">${label}</span><span class="heart-icons" aria-hidden="true">${hearts}</span>`;
+  }
   function setScene(hero, monster, caption, heroHealth = 3, monsterHealth = null) {
     currentHeroHealth = heroHealth;
     heroFrame(hero);
     sceneMonster.hidden = monster === null;
     if (monster !== null) monsterFrame(monster);
-    $('#scene-hero-health').textContent = `모험가 ♥ ${heroHealth}/3`;
-    $('#scene-monster-health').textContent = monsterHealth === null ? '슬라임 —' : `슬라임 ♥ ${monsterHealth}/3`;
+    renderHealth('#scene-hero-health', '모험가', heroHealth);
+    renderHealth('#scene-monster-health', '슬라임', monsterHealth);
     $('#scene-caption').textContent = caption;
+    $('#scene-caption').removeAttribute('aria-label');
   }
   const battleStages = [
     [4, 0, '슬라임 등장!', 3, 3],
@@ -62,15 +85,43 @@
     [5, 1, '일반 공격!', 2.5, 1.5],
     [4, 0, '다시 준비!', 2.5, 1.5],
     [5, 1, '일반 공격!', 2.5, 1],
-    [6, 1, '100m 자동 필살!', 2.5, 0],
+    [4, 0, '필살기 준비!', 2.5, 1],
+    [6, 0, '100m 자동 필살!', 2.5, 1],
+    [6, 1, '필살기 적중!', 2.5, 0],
     [4, 3, '슬라임 패배!', 2.5, 0],
     [8, 3, '승리!', 2.5, 0]
   ];
-  function showStage(index) { setScene(...battleStages[index]); }
-  function resetScene() { battleTick = -1; returnTicks = -1; reducedStep = -1; setScene(4, null, '달릴 준비 완료'); }
+  const stageDurations = [6, 6, 6, 6, 6, 6, 6, 6, 6, 8, 10, 6, 6];
+  function clearUltimate() {
+    titleImage.hidden = true;
+    effectImage.hidden = true;
+    impactImage.hidden = true;
+    sceneHero.classList.remove('ultimate-ready', 'ultimate-hit');
+    sceneHero.style.removeProperty('transform');
+  }
+  function showStage(index) {
+    clearUltimate();
+    setScene(...battleStages[index]);
+    if (index === 9 || index === 10) {
+      $('#scene-caption').setAttribute('aria-label', `${battleStages[index][2]} ${ultimateNames[selectedHero]}`);
+      titleImage.src = `images/demo/title-${selectedHero}.webp`;
+      titleImage.hidden = false;
+      sceneHero.classList.add(index === 9 ? 'ultimate-ready' : 'ultimate-hit');
+    }
+    if (index === 10) {
+      effectImage.src = `images/demo/${effects[selectedHero][0]}.webp`;
+      effectImage.hidden = false;
+      effectImage.style.left = selectedHero === 'mage' ? '67%' : '52%';
+      if (effects[selectedHero][1]) {
+        impactImage.src = `images/demo/${effects[selectedHero][1]}.webp`;
+        impactImage.hidden = false;
+      }
+    }
+  }
+  function resetScene() { battleTick = -1; returnTicks = -1; reducedStep = -1; clearUltimate(); setScene(4, null, '달릴 준비 완료'); }
   function loadImage(src) { return new Promise((resolve, reject) => { const image = new Image(); image.onload = resolve; image.onerror = reject; image.src = src; }); }
   sceneHero.style.backgroundImage = `url('images/demo/${selectedHero}-sprite.webp')`;
-  Promise.all([...Object.keys(heroes).map((key) => loadImage(`images/demo/${key}-sprite.webp`)), loadImage('images/demo/slime-sprite.webp')]).then(() => {
+  Promise.all([...Object.keys(heroes).map((key) => loadImage(`images/demo/${key}-sprite.webp`)), loadImage('images/demo/slime-sprite.webp'), ...Object.keys(heroes).map((key) => loadImage(`images/demo/title-${key}.webp`)), ...Object.values(effects).flat().filter(Boolean).map((name) => loadImage(`images/demo/${name}.webp`))]).then(() => {
     assetsReady = true;
     $('#scene-loading').hidden = true;
     resetScene();
@@ -78,14 +129,15 @@
   }).catch(() => { $('#scene-loading').textContent = '모험가 이미지를 불러오지 못했어요. 새로고침해 주세요.'; });
 
   function updateDistance() {
-    const tenths = Math.min(100, Math.max(0, Math.round(Number(distance.value) * 10)));
+    const tenths = Math.min(maxTenths, Math.max(0, Math.round(Number(distance.value) * 10)));
     const km = tenths / 10;
+    const percent = tenths * 100 / maxTenths;
     distance.value = km.toFixed(1);
     $('#distance-output').textContent = km.toFixed(1);
-    $('#remaining-output').textContent = ((100 - tenths) / 10).toFixed(1);
-    $('#percent-output').textContent = String(tenths);
-    $('.journey-scene').style.backgroundPosition = `${35 + tenths * 0.3}% bottom`;
-    distance.setAttribute('aria-valuetext', `${km.toFixed(1)}킬로미터, 전체의 ${tenths}퍼센트`);
+    $('#remaining-output').textContent = ((maxTenths - tenths) / 10).toFixed(1);
+    $('#percent-output').textContent = String(percent);
+    $('.journey-scene').style.backgroundPosition = `${35 + percent * 0.3}% bottom`;
+    distance.setAttribute('aria-valuetext', `${km.toFixed(1)}킬로미터, 전체의 ${percent}퍼센트`);
   }
   function stop() {
     if (timer !== null) clearInterval(timer);
@@ -138,14 +190,21 @@
         automaticBattleShown = true;
       }
       if (battleTick >= 0) {
-        const stage = Math.floor(battleTick / 6);
+        let elapsed = battleTick;
+        let stage = 0;
+        while (stage < stageDurations.length && elapsed >= stageDurations[stage]) { elapsed -= stageDurations[stage]; stage += 1; }
         if (stage < battleStages.length) {
-          if (battleTick % 6 === 0) {
+          if (elapsed === 0) {
             showStage(stage);
-            if (stage === 8 && playing && !battleIsPreview) {
-              distance.value = Math.min(10, (Math.round(Number(distance.value) * 10) + 1) / 10);
+            if (stage === 10 && playing && !battleIsPreview) {
+              distance.value = Math.min(maxTenths / 10, (Math.round(Number(distance.value) * 10) + 1) / 10);
               updateDistance();
             }
+          }
+          if (stage === 9) sceneHero.style.transform = `translate(${4 + elapsed}px, ${-elapsed}px)`;
+          if (stage === 10) {
+            sceneHero.style.transform = `translate(${12 + elapsed}px, ${-7 + Math.min(elapsed, 7)}px)`;
+            if (selectedHero !== 'mage') effectImage.style.left = `${52 + elapsed * 1.5}%`;
           }
           battleTick += 1;
         }
@@ -153,6 +212,7 @@
           battleTick = -1;
           returnTicks = 0;
           frame = 0;
+          clearUltimate();
           setScene(0, null, '다시 달려요!', 2.5);
         }
       } else if (returnTicks >= 0) {
@@ -160,13 +220,13 @@
         if (returnTicks % 2 === 0) { frame = (frame + 1) % 4; heroFrame(frame); }
         if (returnTicks >= 8) {
           returnTicks = -1;
-          if (!playing || Number(distance.value) >= 10) { finish(); return; }
+          if (!playing || Number(distance.value) >= maxTenths / 10) { finish(); return; }
         }
       } else if (playing) {
         if (ticks % 2 === 0) { frame = (frame + 1) % 4; heroFrame(frame); }
         if (ticks % 4 === 0) {
           const next = (Math.round(Number(distance.value) * 10) + 1) / 10;
-          if (next >= 10) {
+          if (next >= maxTenths / 10) {
             if (automaticBattleShown) { battleTick = 0; battleIsPreview = false; }
           } else { distance.value = next; updateDistance(); }
         }
@@ -178,7 +238,7 @@
     if (!paused) {
       const health = currentHeroHealth;
       stop();
-      if (Number(distance.value) >= 10) distance.value = '0';
+      if (Number(distance.value) >= maxTenths / 10) distance.value = '0';
       updateDistance();
       setScene(0, null, '달리는 중', health);
     }
