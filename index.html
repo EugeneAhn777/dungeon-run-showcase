@@ -7,15 +7,15 @@
   <meta name="description" content="달린 거리가 모험이 되는 러닝 RPG, 던전런의 세계를 미리 만나보세요.">
   <title>던전런 | 달린 거리가, 너의 모험이 된다</title>
   <link rel="icon" type="image/png" href="images/monster-slime.png">
-  <link rel="stylesheet" href="style.css?v=20261113-running-scene">
-  <script src="app.js?v=20261113-running-scene" defer></script>
+  <link rel="stylesheet" href="style.css?v=20261113-watch">
+  <script src="app.js?v=20261113-watch" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">본문 바로가기</a>
   <header class="site-header">
     <a class="brand" href="#top" aria-label="던전런 처음으로"><span class="brand-mark" aria-hidden="true">D</span><span>DUNGEON RUN<small>던전런</small></span></a>
     <nav aria-label="주 메뉴">
-      <a href="#adventure">게임 소개</a><a href="#heroes">모험가</a><a href="#monsters">몬스터</a><a href="#lumi">루미</a>
+      <a href="#adventure">게임 소개</a><a href="#heroes">모험가</a><a href="#monsters">몬스터</a><a href="#lumi">루미</a><a href="#watch">워치</a>
     </nav>
     <button class="motion-toggle" type="button" aria-pressed="false">움직임 줄이기</button>
   </header>
@@ -72,6 +72,11 @@
     </div></section>
 
     <section class="lumi section" id="lumi" aria-labelledby="lumi-title"><div class="wrap lumi-grid"><div class="lumi-portrait"><div class="lumi-halo"></div><img id="lumi-image" src="images/lumi-companion.png" width="267" height="320" loading="lazy" alt="루미의 기본 표정"><span class="portrait-caption">YOUR LITTLE COMPANION <b>✦</b></span></div><div class="lumi-copy"><p class="eyebrow"><span></span> MEET LUMI</p><h2 id="lumi-title">혼자 달리는 길도<br><em>루미와 함께라면.</em></h2><p class="lumi-intro">작은 동료 루미가 모험의 곁을 지켜요.<br>버튼을 눌러 루미의 응원을 받아보세요.</p><div class="speech"><span aria-hidden="true">“</span><p id="lumi-message" aria-live="polite">오늘의 한 걸음도 멋진 모험이에요!</p></div><div class="lumi-audio-actions"><button id="cheer-button" class="button button-navy" type="button">루미의 응원 받기 <span aria-hidden="true">✦</span></button><button id="cheer-stop" class="text-button" type="button">음성 정지</button><label><input id="cheer-mute" type="checkbox"> 음소거</label></div><p id="cheer-status" class="lumi-note" role="status">버튼을 누르면 AI 생성 응원 음성을 미리 들을 수 있어요.</p><div class="lumi-features"><span>음성 안내</span><span>전투 회복</span><span>6가지 의상</span></div></div></div></section>
+
+    <section class="watch section" id="watch" aria-labelledby="watch-title"><div class="wrap watch-grid">
+      <div class="watch-copy"><p class="eyebrow"><span></span> ADVENTURE ON YOUR WRIST</p><h2 id="watch-title">모험은 폰에서,<br><em>확인은 손목에서.</em></h2><p class="watch-lead">스마트폰과 함께하는 Wear OS 동반 화면으로 달리는 순간을 가볍게 확인해요.</p><div class="watch-features"><p><strong>한눈에 보는 여정</strong><br>달린 거리와 목표까지 남은 거리, 경과 시간과 페이스, 측정 심박수를 살펴봐요.</p><p><strong>손목 위의 작은 동료</strong><br>달릴 때는 루미가 함께하고, 전투 중에는 몬스터와 짧은 상태가 표시돼요. 필살기는 자동으로 발동해요.</p><p><strong>모험의 중심은 스마트폰</strong><br>러닝과 전투, 기록 저장과 보상은 스마트폰에서 관리해요. 워치 단독 러닝은 지원하지 않아요.</p></div><p class="watch-note">연결이 끊겨도 스마트폰의 러닝은 계속돼요. 워치에 이전 값이 남아 있다면 최신 값이 아닌 것으로 표시합니다.</p><p class="watch-compat">Wear OS 동반 화면 · 지원 기종과 기능은 기기 검증 후 안내</p></div>
+      <div class="watch-showcase"><div class="watch-strap" aria-hidden="true"></div><div class="watch-face"><p class="watch-face-label">경과 22:24</p><p class="watch-distance">3.2 <small>km</small></p><p class="watch-remaining">목표까지 1.8 km</p><div class="watch-character"><img src="images/lumi-companion.png" width="267" height="320" loading="lazy" alt=""><div><strong>루미와 함께</strong><span>오늘도 힘차게!</span></div></div><div class="watch-metrics"><div><span>평균 페이스</span><strong>7′00″ <small>/km</small></strong></div><div><span>측정 심박수</span><strong>142 <small>bpm</small></strong></div></div></div><p class="watch-caption">소개용 화면 구성 예시 · 실제 기기 화면과 다를 수 있어요.<br>표시된 수치는 예시이며 실시간 측정값이 아닙니다.</p></div>
+    </div></section>
 
     <section class="world section"><div class="wrap"><div class="section-heading"><div><p class="eyebrow light"><span></span> MORE TO DISCOVER</p><h2>달리기 너머,<br><em>나만의 이야기.</em></h2></div><p>모험을 기록하고, 나답게 꾸미고,<br>익숙한 도시를 새로운 눈으로 만나보세요.</p></div><div class="world-grid"><article><span>01 / RECORD</span><h3>발걸음을 기록하다</h3><p>경험치와 레벨 없이, 한 번의 달리기가 나만의 모험 기록으로 쌓입니다.</p></article><article><span>02 / CUSTOMIZE</span><h3>모험가를 꾸미다</h3><p>60종의 장비와 14종의 몬스터가 만들어가는 다채로운 세계.</p></article><article><span>03 / EXPLORE</span><h3>도시를 새롭게 보다</h3><p>서울 6개 권역과 12개 랜드마크를 배경으로 만나는 모험.</p></article></div></div></section>
     <section class="team-section section" id="team" aria-labelledby="team-title"><div class="wrap team-grid"><div class="team-copy"><p class="eyebrow"><span></span> THE TEAM</p><h2 id="team-title">제작팀 FTTY</h2><p>한 명은 100만 다운로드를, 한 명은 렛서판다로의 환생을 꿈꿉니다. 그렇게 둘이서, 러닝을 모험으로 바꾸고 있습니다.</p></div><div class="team-logo-frame"><img src="images/team-ftty.png" width="768" height="512" loading="lazy" alt="FTTY 제작팀 로고: 노트북을 든 사람과 카메라를 든 여우 캐릭터"></div></div><div class="wrap team-members"><article class="team-member"><p class="team-member-role">개발자 · ISTP</p><h3>친구의 상상을 코드로</h3><blockquote>기획자 친구의 상상을 코드로 바꾸는 사람. 의심이 많아서 먼저 돌려 보고, 성격이 급해서 바로 배포한다.</blockquote><h4>꿈의 스케일: 100만 다운로드</h4><p>자기 이름을 건 서비스 하나가 대박 나는 것. 던전런으로 그 꿈을 향해 달립니다.</p></article><article class="team-member"><p class="team-member-role">기획자 · INFP</p><h3>환생연애 출연 지망생</h3><blockquote>‘환생연애’ 출연이 꿈인 기획자. 아무래도 연애보다 렛서판다로 환생하는 쪽에 더 진심인 것 같습니다.</blockquote><h4>꿈의 스케일: 서울대공원 연간회원권</h4><p>오타쿠 러너들의 피·땀·눈물·골수를 쪽쪽 빨아들여 서울대공원 연간회원권을 마련하는 것.</p><p class="team-member-aside">골수까지는 안 받습니다. 여러분은 오래오래 건강하게 달려주셔야 하니까요.</p></article></div></section>

@@ -375,7 +375,7 @@
         });
       });
     }, { rootMargin: '-25% 0px -65% 0px' });
-    ['adventure', 'heroes', 'monsters', 'lumi'].forEach((id) => observer.observe(document.getElementById(id)));
+    ['adventure', 'heroes', 'monsters', 'lumi', 'watch'].forEach((id) => observer.observe(document.getElementById(id)));
   }
   $$('.distance-row output').forEach((output) => output.setAttribute('aria-live', 'off'));
   updateDistance();
