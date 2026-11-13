@@ -21,6 +21,12 @@
   let battleIsPreview = false;
   let automaticBattleShown = false;
   let reducedStep = -1;
+  const scene = $('.journey-scene');
+  const sceneBackground = $('.scene-background');
+  let cameraPosition = 0;
+  let cameraRange = 1;
+  let cameraFrame = null;
+  let cameraTime = null;
   const sceneHero = $('#scene-hero');
   const sceneMonster = $('#scene-monster');
   const battleButton = $('#battle-button');
@@ -136,12 +142,41 @@
     $('#distance-output').textContent = km.toFixed(1);
     $('#remaining-output').textContent = ((maxTenths - tenths) / 10).toFixed(1);
     $('#percent-output').textContent = String(percent);
-    $('.journey-scene').style.backgroundPosition = `${35 + percent * 0.3}% bottom`;
     distance.setAttribute('aria-valuetext', `${km.toFixed(1)}킬로미터, 전체의 ${percent}퍼센트`);
+  }
+  // Keep the panorama and distance independent: combat can add distance without moving the scenery.
+  function renderCamera() {
+    const { width, height } = scene.getBoundingClientRect();
+    cameraRange = Math.max(1, height * 3 - width);
+    sceneBackground.style.backgroundSize = 'auto 100%';
+    sceneBackground.style.backgroundPosition = `${-cameraPosition * cameraRange}px 0px`;
+  }
+  function cameraFromDistance() {
+    cameraPosition = Number(distance.value) / (maxTenths / 10) * 0.5;
+    renderCamera();
+  }
+  function stopCamera() {
+    if (cameraFrame !== null) cancelAnimationFrame(cameraFrame);
+    cameraFrame = null;
+    cameraTime = null;
+  }
+  function moveCamera(time) {
+    if (cameraTime !== null) {
+      cameraPosition = Math.min(1, cameraPosition + 20 * Math.min(time - cameraTime, 100) / 1000 / cameraRange);
+      renderCamera();
+    }
+    cameraTime = time;
+    cameraFrame = requestAnimationFrame(moveCamera);
+  }
+  function syncCamera() {
+    const shouldMove = !reduced && timer !== null && battleTick < 0 && (playing || returnTicks >= 0);
+    if (shouldMove && cameraFrame === null) cameraFrame = requestAnimationFrame(moveCamera);
+    else if (!shouldMove) stopCamera();
   }
   function stop() {
     if (timer !== null) clearInterval(timer);
     timer = null;
+    stopCamera();
     playing = false;
     paused = false;
     manualPreview = false;
@@ -154,6 +189,7 @@
   function pause() {
     if (timer !== null) clearInterval(timer);
     timer = null;
+    stopCamera();
     playing = false;
     paused = true;
     playButton.innerHTML = '▶ <span>이어 재생</span>';
@@ -162,6 +198,7 @@
   function finish() {
     if (timer !== null) clearInterval(timer);
     timer = null;
+    stopCamera();
     playing = false;
     paused = false;
     manualPreview = false;
@@ -180,7 +217,7 @@
     battleButton.disabled = !assetsReady;
     battleButton.textContent = reduced ? '전투 단계 보기' : '전투 장면 보기';
   }
-  distance.addEventListener('input', () => { stop(); updateDistance(); });
+  distance.addEventListener('input', () => { stop(); updateDistance(); cameraFromDistance(); });
   function startTimer() {
     timer = setInterval(() => {
       ticks += 1;
@@ -231,14 +268,16 @@
           } else { distance.value = next; updateDistance(); }
         }
       }
+      syncCamera();
     }, 100);
+    syncCamera();
   }
   playButton.addEventListener('click', () => {
     if (timer !== null) { pause(); return; }
     if (!paused) {
       const health = currentHeroHealth;
       stop();
-      if (Number(distance.value) >= maxTenths / 10) distance.value = '0';
+      if (Number(distance.value) >= maxTenths / 10) { distance.value = '0'; cameraFromDistance(); }
       updateDistance();
       setScene(0, null, '달리는 중', health);
     }
@@ -256,6 +295,7 @@
     }
     if (paused) stop();
     if (timer === null) {
+      cameraFromDistance();
       ticks = 0;
       manualPreview = true;
       playButton.innerHTML = 'Ⅱ <span>일시 정지</span>';
@@ -265,13 +305,15 @@
     returnTicks = -1;
     battleIsPreview = true;
     battleTick = 0;
+    syncCamera();
     showStage(0);
   });
-  $('#reset-button').addEventListener('click', () => { stop(); distance.value = '0'; updateDistance(); });
+  $('#reset-button').addEventListener('click', () => { stop(); distance.value = '0'; updateDistance(); cameraFromDistance(); });
   motionButton.addEventListener('click', () => { reduced = !reduced; syncMotion(); });
   preference.addEventListener?.('change', (event) => { reduced = event.matches; syncMotion(); });
   document.addEventListener('visibilitychange', () => { if (document.hidden) { stop(); stopAudio(); } });
   window.addEventListener('pagehide', () => { stop(); stopAudio(); });
+  window.addEventListener('resize', renderCamera);
 
   $$('.character-card').forEach((button) => button.addEventListener('click', () => {
     const key = button.dataset.hero;
@@ -337,5 +379,6 @@
   }
   $$('.distance-row output').forEach((output) => output.setAttribute('aria-live', 'off'));
   updateDistance();
+  renderCamera();
   syncMotion();
 })();

@@ -7,8 +7,8 @@
   <meta name="description" content="달린 거리가 모험이 되는 러닝 RPG, 던전런의 세계를 미리 만나보세요.">
   <title>던전런 | 달린 거리가, 너의 모험이 된다</title>
   <link rel="icon" type="image/png" href="images/monster-slime.png">
-  <link rel="stylesheet" href="style.css?v=20261113-team-stories">
-  <script src="app.js?v=20261113-2km-ultimate" defer></script>
+  <link rel="stylesheet" href="style.css?v=20261113-running-scene">
+  <script src="app.js?v=20261113-running-scene" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">본문 바로가기</a>
@@ -39,7 +39,7 @@
       <div class="section-heading intro-heading"><div><p class="eyebrow"><span></span> THE ADVENTURE BEGINS</p><h2 id="adventure-title">현실의 발걸음,<br><em>모험의 시작.</em></h2></div><p>달리는 길 위에서 나만의 모험가가 되어보세요.<br>슬라이더를 움직이면 2km 여정이 펼쳐집니다.</p></div>
       <div class="demo-frame">
         <div class="demo-top"><div><p class="overline">YOUR ADVENTURE PREVIEW</p><h3>어디까지 달려볼까요?</h3></div><span class="demo-badge"><span></span> 가상 체험</span></div>
-        <div class="journey-scene" aria-label="가상 여정과 전투 시연"><div class="scene-tint"></div><div class="scene-hud"><span id="scene-hero-health" class="health-group" role="img" aria-label="모험가 체력 3/3">모험가 체력 3/3</span><span id="scene-caption" aria-live="polite">모험을 준비하고 있어요</span><span id="scene-monster-health" class="health-group" role="img" aria-label="슬라임 없음">슬라임 —</span></div><div class="scene-actors" aria-hidden="true"><img id="ultimate-title" class="ultimate-title" alt="" hidden><img id="ultimate-fx" class="ultimate-fx" alt="" hidden><img id="ultimate-impact" class="ultimate-impact" alt="" hidden><div class="scene-hero sprite" id="scene-hero"></div><div class="scene-monster sprite" id="scene-monster" hidden></div></div><p class="scene-loading" id="scene-loading" role="status">모험가의 모습을 불러오는 중이에요.</p></div>
+        <div class="journey-scene" aria-label="가상 여정과 전투 시연"><div class="scene-background" aria-hidden="true"></div><div class="scene-tint"></div><div class="scene-hud"><span id="scene-hero-health" class="health-group" role="img" aria-label="모험가 체력 3/3">모험가 체력 3/3</span><span id="scene-caption" aria-live="polite">모험을 준비하고 있어요</span><span id="scene-monster-health" class="health-group" role="img" aria-label="슬라임 없음">슬라임 —</span></div><div class="scene-actors" aria-hidden="true"><img id="ultimate-title" class="ultimate-title" alt="" hidden><img id="ultimate-fx" class="ultimate-fx" alt="" hidden><img id="ultimate-impact" class="ultimate-impact" alt="" hidden><div class="scene-hero sprite" id="scene-hero"></div><div class="scene-monster sprite" id="scene-monster" hidden></div></div><p class="scene-loading" id="scene-loading" role="status">모험가의 모습을 불러오는 중이에요.</p></div>
         <div class="demo-controls">
           <div class="distance-row"><div><span>진행 거리</span><strong><output id="distance-output" for="distance">0.0</output> <small>km</small></strong></div><div class="distance-secondary"><span>남은 거리</span><strong><output id="remaining-output" for="distance">2.0</output> <small>km</small></strong></div><div class="distance-secondary"><span>진행률</span><strong><output id="percent-output" for="distance">0</output><small>%</small></strong></div></div>
           <label class="sr-only" for="distance">가상 진행 거리 (킬로미터)</label><input id="distance" type="range" min="0" max="2" step="0.1" value="0" aria-describedby="demo-note">
