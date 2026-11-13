@@ -2,6 +2,10 @@
 
 달린 거리가 모험이 되는, 루미와 함께하는 스마트폰 중심 러닝 RPG입니다. 현실에서 달리며 몬스터와 싸우고 동료를 만나 보세요.
 
+[GitHub Pages로 웹사이트 보기](https://eugeneahn777.github.io/dungeon-run-showcase/)
+
+웹사이트에서 가상 거리 체험, 모험가 선택, 몬스터 도감, 루미의 응원을 살펴볼 수 있습니다.
+
 ![서울 남산 권역을 표현한 러닝 배경 예시](images/running-scene.jpg)
 
 ## 달리며 이어 가는 모험
