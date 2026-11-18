@@ -47,7 +47,7 @@ Wear OS 동반 화면은 스마트폰과 함께 사용하며 거리, 남은 거�
 
 ## 모험가 예시
 
-[모험가 소개](https://eugeneahn777.github.io/dungeon-run-showcase/#heroes)에서 캐릭터를 고르면 장면별 일러스트를 볼 수 있습니다. 방패 위에서 낮잠을 자는 고양이, 엘프의 화살통에 둥지를 튼 새, 대마법에서 나온 병아리도 찾아보세요. [루미 소개](https://eugeneahn777.github.io/dungeon-run-showcase/#lumi)에서는 응원 음성과 함께 루미의 두 장면을 볼 수 있습니다.
+[모험가 소개](https://eugeneahn777.github.io/dungeon-run-showcase/#heroes)에서 캐릭터를 고르면 일러스트 네 컷을 한눈에 볼 수 있습니다. 방패 위에서 낮잠을 자는 고양이, 엘프의 화살통에 둥지를 튼 새, 대마법에서 나온 병아리도 찾아보세요. [루미](https://eugeneahn777.github.io/dungeon-run-showcase/#lumi)와 [길드](https://eugeneahn777.github.io/dungeon-run-showcase/#guild)에도 네 컷씩 담았습니다.
 
 | 검사 | 방패전사 |
 | --- | --- |
