@@ -4,6 +4,7 @@
   const $$ = (selector) => [...document.querySelectorAll(selector)];
   const distance = $('#distance');
   const playButton = $('#play-button');
+  const demoMotionNote = $('#demo-motion-note');
   const motionButton = $('.motion-toggle');
   const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
   let reduced = preference.matches;
@@ -216,6 +217,7 @@
     playButton.title = reduced ? '자동 재생을 사용하려면 움직임 줄이기를 꺼주세요.' : '';
     battleButton.disabled = !assetsReady;
     battleButton.textContent = reduced ? '전투 단계 보기' : '전투 장면 보기';
+    demoMotionNote.hidden = !reduced;
   }
   distance.addEventListener('input', () => { stop(); updateDistance(); cameraFromDistance(); });
   function startTimer() {

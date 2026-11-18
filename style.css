@@ -34,6 +34,21 @@
 @media(max-width:800px){.site-header{height:auto;min-height:70px;padding:12px 16px;flex-wrap:wrap;gap:10px}.site-header nav{order:3;width:100%;justify-content:space-between;gap:6px;margin:0;font-size:12px}.site-header nav a{padding:5px 0}.site-header .motion-toggle{margin-left:auto}#main,.hero,.section{scroll-margin-top:110px}}
 @media(max-width:600px){.site-header nav{gap:4px;font-size:11px}}
 
+/* Place the demo's playback actions before the scene and keep the anchored card in view. */
+.demo-frame{scroll-margin-top:90px}
+.demo-frame .demo-top{padding-bottom:14px}
+.demo-actions{padding:0 30px 18px;align-items:center}
+.demo-actions .text-button{min-height:44px;padding:8px 14px;border:1px solid transparent}
+.demo-actions .demo-play{background:var(--navy);color:#fff}
+.demo-actions .demo-play:not(:disabled):hover{background:#33445e}
+.demo-actions .demo-play:disabled{opacity:1;background:#e5e0d4;color:#5a554f}
+.demo-actions .demo-battle{background:#e8cf9f;color:var(--navy);border-color:#ad844b}
+.demo-actions .demo-battle:not(:disabled):hover{background:#dfbb7a}
+#demo-motion-note{flex-basis:100%;margin:0;color:#625f58;font-size:12px;word-break:keep-all}
+.journey-scene{width:100%;min-width:0}
+@media(max-width:800px){.demo-frame{scroll-margin-top:114px}}
+@media(max-width:600px){.demo-actions{padding-inline:18px}}
+
 /* Promotional illustrations: show every frame without cropping. */
 .hero{min-height:0;background:var(--navy)}
 .hero-inner{min-height:0;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(24px,4vw,60px);align-items:center;padding-block:clamp(50px,7vw,100px)}
