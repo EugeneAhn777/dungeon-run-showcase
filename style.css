@@ -49,6 +49,10 @@
 @media(max-width:800px){.demo-frame{scroll-margin-top:114px}}
 @media(max-width:600px){.demo-actions{padding-inline:18px}}
 
+/* Calibrate the visible pose without altering the actor's attack/ultimate motion. */
+.scene-hero{background-size:0 0}
+.scene-hero::before{content:"";position:absolute;inset:0;background-image:inherit;background-position:inherit;background-repeat:no-repeat;background-size:900% 100%;transform-origin:50% var(--hero-frame-sole,88.3%);transform:translateY(var(--hero-frame-offset,0%)) scale(var(--hero-frame-scale,1))}
+
 /* Promotional illustrations: show every frame without cropping. */
 .hero{min-height:0;background:var(--navy)}
 .hero-inner{min-height:0;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(24px,4vw,60px);align-items:center;padding-block:clamp(50px,7vw,100px)}

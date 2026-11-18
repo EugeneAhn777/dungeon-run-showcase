@@ -29,6 +29,28 @@
   let cameraFrame = null;
   let cameraTime = null;
   const sceneHero = $('#scene-hero');
+  const heroCellSize = 384;
+  const heroGround = 339;
+  // [uniform scale, visible boot sole, optional running lift] in source-cell pixels.
+  // Frames 0/2 are footfalls; 1/3 keep a deliberate gap above the shared ground.
+  const heroFramePoses = {
+    swordsman: [
+      [1.035, 339], [1.035, 304, 26], [1.035, 339], [1.035, 297, 32],
+      [1, 339], [1.035, 339], [1, 339], [1, 341], [1, 340]
+    ],
+    shield: [
+      [1.13, 339], [1.13, 305, 25], [1.13, 339], [1.13, 302, 27],
+      [1, 339], [1.065, 339], [1.035, 339], [1.035, 341], [1, 339]
+    ],
+    elf: [
+      [1.025, 337], [1.025, 315, 18], [1.025, 339], [1.025, 303, 27],
+      [1, 339], [1.02, 339], [1, 339], [1, 339], [1, 339]
+    ],
+    mage: [
+      [1.08, 337], [1.08, 296, 33], [1.08, 340], [1.08, 291, 36],
+      [1, 339], [1, 339], [1, 339], [0.98, 342], [0.975, 339]
+    ]
+  };
   const sceneMonster = $('#scene-monster');
   const battleButton = $('#battle-button');
   const maxTenths = 20;
@@ -60,7 +82,14 @@
   let currentAudio = null;
   let audioToken = 0;
 
-  function heroFrame(index) { sceneHero.style.backgroundPosition = `${index * 12.5}% 0`; sceneHero.classList.toggle('is-attacking', index === 5 || index === 6); }
+  function heroFrame(index) {
+    const [scale, sole, lift = 0] = heroFramePoses[selectedHero][index];
+    sceneHero.style.backgroundPosition = `${index * 12.5}% 0`;
+    sceneHero.style.setProperty('--hero-frame-scale', String(scale));
+    sceneHero.style.setProperty('--hero-frame-sole', `${sole / heroCellSize * 100}%`);
+    sceneHero.style.setProperty('--hero-frame-offset', `${(heroGround - lift - sole) / heroCellSize * 100}%`);
+    sceneHero.classList.toggle('is-attacking', index === 5 || index === 6);
+  }
   function monsterFrame(index) { sceneMonster.style.backgroundPosition = `${index * 100 / 3}% 0`; }
   function renderHealth(selector, label, value) {
     const element = $(selector);
@@ -323,9 +352,9 @@
     $$('.character-card').forEach((item) => { const selected = item === button; item.classList.toggle('is-selected', selected); item.setAttribute('aria-pressed', String(selected)); });
     $('#hero-detail-title').textContent = hero.name;
     $('#hero-detail-text').textContent = hero.text;
-    stop();
     selectedHero = key;
     sceneHero.style.backgroundImage = `url('images/demo/${key}-sprite.webp')`;
+    stop();
   }));
   $$('.monster-card').forEach((button) => button.addEventListener('click', () => {
     const key = button.dataset.monster;
