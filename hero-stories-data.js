@@ -7,9 +7,9 @@ window.DUNGEON_RUN_STORIES = (() => {
       tagline: '푸른 망토를 휘날리며 모험의 첫발을 내딛는 검사.',
       scenes: [
         scene('swordsman-riverside', '강가의 짧은 여유', '햇살이 비치는 강가에서 뒤를 돌아보며 미소 짓는 검사'),
-        scene('swordsman-draw', '검에 손을 얹고', '검집에서 칼날을 반쯤 뽑은 채 달리는 검사'),
-        scene('swordsman-ready', '길을 열어라', '푸른 망토를 휘날리며 검을 완전히 뽑아 든 검사'),
-        scene('swordsman-swing', '멈추지 않는 발걸음', '달리던 기세 그대로 검을 휘두르는 검사')
+        scene('swordsman-moonlit-cross-slash', '달빛 아래, 크로스 슬래시', '달빛이 드는 폐허에서 고블린의 방패를 향해 십자 모양 검격을 날리는 검사'),
+        scene('swordsman-campfire-respite', '모닥불 곁에서', '해 질 무렵 숲에서 통나무에 앉아 모닥불에 손을 쬐는 검사'),
+        scene('swordsman-slime-lunch', '내 점심 돌려줘!', '장터에서 샌드위치를 머리에 얹고 달아나는 파란 슬라임을 쫓는 검사')
       ]
     },
     shield: {
