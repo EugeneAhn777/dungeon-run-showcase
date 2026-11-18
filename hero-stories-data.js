@@ -50,8 +50,8 @@ window.DUNGEON_RUN_STORIES = (() => {
     },
     guild: {
       scenes: [
-        scene('guild-clerk-action', '길드누나 · 밤샘 원정 지휘', '커다란 지도 앞에서 손짓하며 원정 계획을 안내하는 길드 접수원'),
-        scene('guild-clerk-letters', '길드누나 · 편지 소동', '편지 한 장을 이마에 붙인 채 날아가는 편지를 붙잡는 길드 접수원'),
+        scene('guild-clerk-action', '아이네 · 밤샘 원정 지휘', '커다란 지도 앞에서 손짓하며 원정 계획을 안내하는 아이네'),
+        scene('guild-clerk-letters', '아이네 · 편지 소동', '편지 한 장을 이마에 붙인 채 날아가는 편지를 붙잡는 아이네'),
         scene('guild-master-rescue', '길드마스터 · 폭풍 속 구조', '폭우가 쏟아지는 바위 위에서 밧줄을 단단히 잡고 버티는 길드마스터'),
         scene('guild-master-guest', '길드마스터 · 돋보기 아래 숨은 손님', '탁자 위 지도에 잠든 고슴도치를 돋보기로 살피는 길드마스터')
       ]
